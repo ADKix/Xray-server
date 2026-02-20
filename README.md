@@ -11,7 +11,10 @@ Supported architectures:
 - linux/386
 - linux/amd64
 
-#### It is recommended to use it in conjunction with [ADKix/Xray-client](https://github.com/ADKix/Xray-client)!
+Verified clients:
+- [ADKix/Xray-server](https://github.com/ADKix/Xray-server)
+- [v2RayTun](https://v2raytun.com)
+- [Amnezia VPN](https://amnezia.org)
 
 ------------
 ### Examples:
