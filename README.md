@@ -12,7 +12,7 @@ Supported architectures:
 - linux/amd64
 
 Verified clients:
-- [ADKix/Xray-server](https://github.com/ADKix/Xray-server)
+- [ADKix/Xray-client](https://github.com/ADKix/Xray-client)
 - [v2RayTun](https://v2raytun.com)
 - [Amnezia VPN](https://amnezia.org)
 
