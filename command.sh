@@ -42,7 +42,7 @@ cat >"/etc/xray.json" <<EOF
         "network": "tcp",
         "security": "reality",
         "realitySettings": {
-          "dest": "www.samsung.com:443",
+          "dest": "${SNI}:443",
           "serverNames": [
             "${SNI}"
           ],
