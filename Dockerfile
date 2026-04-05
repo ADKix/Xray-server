@@ -3,7 +3,7 @@ ARG XRAY=v26.3.27
 
 FROM alpine:${ALPINE}
 LABEL org.opencontainers.image.authors="Axl <https://github.com/ADKix>"
-RUN apk add -U --no-cache 7zip openssl util-linux-misc libqrencode-tools
+RUN apk add -U --no-cache 7zip util-linux-misc libqrencode-tools
 ARG XRAY
 ARG TARGETPLATFORM
 WORKDIR "/opt"
