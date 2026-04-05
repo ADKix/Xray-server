@@ -3,7 +3,7 @@
 ### It uses [Xray-core](https://github.com/XTLS/Xray-core).
 
 Supported protocols:
-- VLESS Reality
+- VLESS Reality via TCP or XHTTP
 
 Supported architectures:
 - linux/arm64/v8
@@ -40,6 +40,7 @@ Creating a container and a network interface for it, providing internet access:
 /container/config set registry-url=registry-1.docker.io
 /container/envs add key=ADDRESS value="<public IP address of the host [optional, default gets from "ifconfig.me"]>" list=xray-server
 /container/envs add key=PORT value="<port number on the host, 443 for example>" list=xray-server
+/container/envs add key=NETWORK value="<network type [optional, default "tcp"]>" list=xray-server
 /container/envs add key=SNI value="<SNI [optional, default "www.google.com"]>" list=xray-server
 /container/mounts add src="xray-server_data" dst="/opt/data" list=xray-server
 /container add remote-image=adkix/xray-server root-dir=xray-server/ mountlists=xray-server tmpfs=/tmp:64M:0777 interface=veth1 envlist=xray-server start-on-boot=yes
@@ -59,6 +60,7 @@ Create a ".env" file with the following contents \[optional]:
 ```
 ADDRESS=<public IP address of the host [optional, default gets from "ifconfig.me"]>
 PORT=<port number on the host [optional, default "443"]>
+NETWORK=<network type [optional, default "tcp"]>
 SNI=<SNI [optional, default "www.google.com"]>
 ```
 
