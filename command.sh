@@ -5,8 +5,8 @@ if [ -z "$(ls -A "data" 2>/dev/null)" ]; then
   xray x25519 >"data/keys"
 fi
 ID="$(cat "data/uuid")"
-PRIVATE_KEY="$(awk '/PrivateKey/{print $2}' "data/keys")"
-PUBLIC_KEY="$(awk '/Password/{print $2}' "data/keys")"
+PRIVATE_KEY="$(sed -n -E 's|PrivateKey[^:]*: (.*)|\1|p' "data/keys")"
+PUBLIC_KEY="$(sed -n -E 's|Password[^:]*: (.*)|\1|p' "data/keys")"
 ADDRESS="${ADDRESS:-$(wget -q "ifconfig.me/ip" -O-)}"
 
 if [ -z "${ADDRESS}" ]; then echo "The ADDRESS environment variable must be set!" >&2; exit 1; fi
