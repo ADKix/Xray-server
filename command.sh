@@ -3,15 +3,17 @@ set -e
 if [ -z "$(ls -A "data" 2>/dev/null)" ]; then
   xray uuid >"data/uuid"
   xray x25519 >"data/keys"
+  { tr -dc '0-9a-f' <"/dev/urandom" | head -c 16; echo; } >"data/sid"
 fi
 ID="$(cat "data/uuid")"
 PRIVATE_KEY="$(sed -n -E 's|PrivateKey[^:]*: (.*)|\1|p' "data/keys")"
 PUBLIC_KEY="$(sed -n -E 's|Password[^:]*: (.*)|\1|p' "data/keys")"
+SHORT_ID="$(cat "data/sid")"
 ADDRESS="${ADDRESS:-$(wget -q "ifconfig.me/ip" -O-)}"
 
 if [ -z "${ADDRESS}" ]; then echo "The ADDRESS environment variable must be set!" >&2; exit 1; fi
 if [ "${NETWORK}" = "xhttp" ]; then
-  echo "vless://${ID}@${ADDRESS}:${PORT}?type=xhttp&security=reality&pbk=${PUBLIC_KEY}&sni=${SNI}&fp=chrome#${ADDRESS}" | qrencode -t ansiutf8
+  echo "vless://${ID}@${ADDRESS}:${PORT}?type=xhttp&security=reality&pbk=${PUBLIC_KEY}&sid=${SHORT_ID}&sni=${SNI}&fp=chrome#${ADDRESS}:${PORT}" | qrencode -t ansiutf8
   cat >"/etc/xray.json" <<-EOF
 		{
 			"log": {
@@ -39,7 +41,8 @@ if [ "${NETWORK}" = "xhttp" ]; then
 							],
 						"privateKey": "${PRIVATE_KEY}",
 						"shortIds": [
-							""
+							"",
+              "${SHORT_ID}"
 							]
 						}
 					}
@@ -53,7 +56,7 @@ if [ "${NETWORK}" = "xhttp" ]; then
 		}
 	EOF
 elif [ "${NETWORK}" = "tcp" ]; then
-  echo "vless://${ID}@${ADDRESS}:${PORT}?type=tcp&flow=xtls-rprx-vision&security=reality&pbk=${PUBLIC_KEY}&sni=${SNI}&fp=chrome#${ADDRESS}" | qrencode -t ansiutf8
+  echo "vless://${ID}@${ADDRESS}:${PORT}?type=tcp&flow=xtls-rprx-vision&security=reality&pbk=${PUBLIC_KEY}&sid=${SHORT_ID}&sni=${SNI}&fp=chrome#${ADDRESS}:${PORT}" | qrencode -t ansiutf8
   cat >"/etc/xray.json" <<-EOF
 		{
 			"log": {
@@ -82,7 +85,8 @@ elif [ "${NETWORK}" = "tcp" ]; then
 							],
 						"privateKey": "${PRIVATE_KEY}",
 						"shortIds": [
-							""
+							"",
+              "${SHORT_ID}"
 							]
 						}
 					}
@@ -104,9 +108,10 @@ fi
   echo
   echo "Address: ${ADDRESS}"
   echo "Port: ${PORT}"
-  echo "Network: ${NETWORK:-tcp}"
+  echo "Network: ${NETWORK}"
   echo "ID: ${ID}"
   echo "PublicKey: ${PUBLIC_KEY}"
+  echo "ShortID: ${SHORT_ID}"
   echo "SNI: ${SNI}"
   echo
 } | column -L -t
