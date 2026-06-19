@@ -41,7 +41,6 @@ if [ "${NETWORK}" = "xhttp" ]; then
 							],
 						"privateKey": "${PRIVATE_KEY}",
 						"shortIds": [
-							"",
               "${SHORT_ID}"
 							]
 						}
@@ -85,7 +84,6 @@ elif [ "${NETWORK}" = "tcp" ]; then
 							],
 						"privateKey": "${PRIVATE_KEY}",
 						"shortIds": [
-							"",
               "${SHORT_ID}"
 							]
 						}
