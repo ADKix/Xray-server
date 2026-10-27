@@ -82,9 +82,9 @@ elif [ "${NETWORK}" = "tcp" ]; then
 							"serverNames": [
 								"${SNI}"
 							],
-						"privateKey": "${PRIVATE_KEY}",
-						"shortIds": [
-              "${SHORT_ID}"
+						  "privateKey": "${PRIVATE_KEY}",
+						  "shortIds": [
+                "${SHORT_ID}"
 							]
 						}
 					}
