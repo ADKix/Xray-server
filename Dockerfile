@@ -1,5 +1,5 @@
 ARG ALPINE=3.24.3
-ARG XRAY=v26.10.21
+ARG XRAY=v26.10.29
 
 FROM alpine:${ALPINE}
 LABEL org.opencontainers.image.authors="Axl <https://github.com/ADKix>"
