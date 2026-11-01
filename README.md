@@ -13,6 +13,7 @@ Supported architectures:
 
 Verified clients:
 - [ADKix/Xray-client](https://github.com/ADKix/Xray-client)
+- [Happ Proxy Utility](https://happ.info)
 - [v2RayTun](https://v2raytun.com)
 - [Amnezia VPN](https://amnezia.org)
 
